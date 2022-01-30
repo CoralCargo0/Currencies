@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigate_up"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_baseline_arrow_forward_24"
+        android:icon="@drawable/ic_baseline_check_24"
         android:title="navigate up" />
 
 </menu>

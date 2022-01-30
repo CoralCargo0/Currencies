@@ -87,7 +87,7 @@ class SettingsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigate_up -> {
-                //
+                viewModel.save()
                 findNavController().navigateUp()
             }
             else -> findNavController().navigateUp()
@@ -95,10 +95,6 @@ class SettingsFragment : Fragment() {
         return true
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.save()
-    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.settings_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
