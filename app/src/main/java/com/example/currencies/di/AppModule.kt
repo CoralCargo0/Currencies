@@ -10,8 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
     single { provideApi() }
-    single { CurrencyRepositoryImpl(get(), get<CurrencyRoomDatabase>().currencyDao()) }
-    single { CurrencyRoomDatabase.getDatabase(get()) }
+    single { CurrencyRepositoryImpl(get(), CurrencyRoomDatabase.getDatabase(get()).currencyDao()) }
 }
 
 fun provideApi(): NbrbApi {

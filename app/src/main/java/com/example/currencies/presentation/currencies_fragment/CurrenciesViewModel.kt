@@ -40,18 +40,18 @@ class CurrenciesViewModel(
     fun initCurrencies() {
         CoroutineScope(Dispatchers.IO).launch {
             _state.value = CurrenciesState(isLoading = true)
-            allCurrencies.value = getAllCurrenciesFromFlowUseCase.invoke()
-            allCurrencies.value = getAllCurrenciesUseCase.invoke() as MutableList<Currency>
-            saveAllCurrenciesInFlowUseCase.invoke(allCurrencies.value)
+            allCurrencies.value = getAllCurrenciesFromFlowUseCase()
+            allCurrencies.value = getAllCurrenciesUseCase() as MutableList<Currency>
+            saveAllCurrenciesInFlowUseCase(allCurrencies.value)
         }
     }
 
     fun updateCurrencies() {
         if (allCurrencies.value.isNotEmpty() && allCurrencies.value[1].date == todaysDateStr) {
-            allCurrencies.value = getAllCurrenciesFromFlowUseCase.invoke()
+            allCurrencies.value = getAllCurrenciesFromFlowUseCase()
             _state.value =
                 CurrenciesState(currencies = allCurrencies.value.filter { it.isShowing })
-            // saveAllCurrenciesInFlowUseCase.invoke(allCurrencies.value)
+            // saveAllCurrenciesInFlowUseCase(allCurrencies.value)
         } else {
             getCurrenciesFromApiUseCase(tomorrowDateStr).onEach { result ->
                 when (result) {
@@ -112,7 +112,7 @@ class CurrenciesViewModel(
                         }
                         _state.value =
                             CurrenciesState(currencies = allCurrencies.value.filter { it.isShowing })
-                        saveAllCurrenciesInFlowUseCase.invoke(allCurrencies.value)
+                        saveAllCurrenciesInFlowUseCase(allCurrencies.value)
                         saveCurrencies()
                     }
 
@@ -136,7 +136,7 @@ class CurrenciesViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             allCurrencies.value.forEachIndexed { index, currency ->
                 currency.position = index
-                insertCurrencyUseCase.invoke(currency)
+                insertCurrencyUseCase(currency)
             }
         }
     }

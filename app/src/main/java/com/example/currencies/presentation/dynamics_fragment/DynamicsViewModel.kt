@@ -28,7 +28,7 @@ class DynamicsViewModel(
         calendar.add(Calendar.DAY_OF_YEAR, -30)
         val date: Date = calendar.time
         val startDayStr = Constants.dateFormatForAPI.format(date)
-        getDynamicsUseCase.invoke(id, startDayStr, endDateStr).onEach { result ->
+        getDynamicsUseCase(id, startDayStr, endDateStr).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = DataPointsState(points = result.data ?: emptyList())

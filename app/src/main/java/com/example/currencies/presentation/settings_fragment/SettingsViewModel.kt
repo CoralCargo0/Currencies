@@ -17,13 +17,13 @@ class SettingsViewModel(
     fun setCurrencies() {
         if (!isInit) {
             state.value =
-                getAllCurrenciesFromFlowUseCase.invoke().map { it.copy() } as MutableList<Currency>
+                getAllCurrenciesFromFlowUseCase().map { it.copy() } as MutableList<Currency>
             state.value.sortBy { !it.isShowing }
             isInit = true
         }
     }
 
     fun save() {
-        saveAllCurrenciesInFlowUseCase.invoke(state.value)
+        saveAllCurrenciesInFlowUseCase(state.value)
     }
 }
